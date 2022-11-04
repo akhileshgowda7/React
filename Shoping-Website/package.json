@@ -1,0 +1,15 @@
+{
+  "name": "shoping-website",
+  "version": "1.0.0",
+  "description": "MERN Shopping app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server"
+  },
+  "author": "Akhilesh",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

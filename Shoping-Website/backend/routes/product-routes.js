@@ -1,6 +1,6 @@
 import express from 'express';
-import Product from '../models/productModel';
-import asyncHandler from 'express-async-handler ';
+import Product from '../models/productModel.js';
+import asyncHandler from 'express-async-handler';
 import { useParams } from 'react-router-dom';
 
 const router = express.Router();

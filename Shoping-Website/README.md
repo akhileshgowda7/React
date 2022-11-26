@@ -20,4 +20,4 @@ Launches the server side of the application
 
 ### `npm run dev`
 
-Runs both server and client concurrently.
+Runs both server and client concurrently using the run dev command.

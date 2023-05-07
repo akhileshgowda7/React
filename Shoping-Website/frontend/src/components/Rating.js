@@ -70,8 +70,8 @@ const Rating = ({ value, text, color }) => {
 
 Rating.defaultProps = {
   // color: 'f8e825',
-  color: 'blue',
-};
 
+  color: 'rgb(111, 66, 193)',
+};
 
 export default Rating;

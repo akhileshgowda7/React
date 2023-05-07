@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import colors from 'colors';
 import productRoutes from './routes/product-routes.js';
-import userRoutes from './routes/user-routes.js'
+import userRoutes from './routes/user-routes.js';
 import { notFound, errorHandler } from './middleware/error-middleware.js';
 
 dotenv.config();
@@ -11,7 +11,7 @@ dotenv.config();
 connectDB();
 
 const app = express(); //initializing express
-app.use(express.json())
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('API is Runnning');
@@ -20,12 +20,11 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 
-
 app.use(notFound);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5005;
 app.listen(
   PORT,
   console.log(

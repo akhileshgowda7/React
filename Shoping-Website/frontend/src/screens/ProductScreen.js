@@ -23,8 +23,10 @@ const ProductScreen = () => {
   const dispatch = useDispatch();
   const history = useNavigate();
 
+
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+  console.log(product)
   //use effects loads as soon as the component loads
   useEffect(() => {
     dispatch(listProductDetails(params.id));

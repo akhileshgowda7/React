@@ -14,6 +14,7 @@ const authUser = asyncHandler(async (req, res) => {
     res.json({
       _id: user._id,
       email: user.email,
+      name: user.name,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
@@ -46,6 +47,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: user._id,
       email: user.email,
+      name: user.name,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
@@ -65,6 +67,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     res.json({
       _id: user._id,
       email: user.email,
+      name: user.name,
       isAdmin: user.isAdmin,
     });
   } else {

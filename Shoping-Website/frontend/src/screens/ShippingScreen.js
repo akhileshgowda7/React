@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import { saveShippingAddress } from '../actions/cart-actions';
 import { useDispatch, useSelector } from 'react-redux';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
@@ -22,6 +23,7 @@ const ShippingScreen = ({ history }) => {
   };
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <h1>shipping</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="address">

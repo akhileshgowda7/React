@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
-  Form,
   Button,
   Row,
   Col,
@@ -10,14 +9,14 @@ import {
   Card,
   ListGroupItem,
 } from 'react-bootstrap';
-import FormContainer from '../components/FormContainer';
-import { saveShippingAddress } from '../actions/cart-actions';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
 import Message from '../components/Message';
+import { createOrder } from '../actions/order-actions';
 
 const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
@@ -26,17 +25,43 @@ const PlaceOrderScreen = () => {
   cart.itemsPrice = addDecimals(
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
+
+  const dispatch = useDispatch();
+
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`);
+    }
+    //eslint-disable-next-line
+  }, [navigate, success]);
   const placeOrderHandler = () => {
-    console.log('Order');
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
   };
 
   cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100);
 
   cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
 
-  cart.totalPrice = addDecimals((
-    Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)
-  ).toFixed(2));
+  cart.totalPrice = addDecimals(
+    (
+      Number(cart.itemsPrice) +
+      Number(cart.shippingPrice) +
+      Number(cart.taxPrice)
+    ).toFixed(2)
+  );
 
   return (
     <>
@@ -120,6 +145,9 @@ const PlaceOrderScreen = () => {
                   <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroupItem>
+              <ListGroup>
+                {error && <Message variant="danger">{error}</Message>}
+              </ListGroup>
               <ListGroupItem>
                 <Button
                   type="button"

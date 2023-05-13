@@ -28,7 +28,7 @@ const ProfileScreen = () => {
 
   const orderListMy = useSelector((state) => state.orderListMy);
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
-  console.log(orders);
+
 
   const navigate = useNavigate();
 

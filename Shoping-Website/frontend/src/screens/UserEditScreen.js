@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetails } from '../actions/user-actions';
+import { getUserDetails, updateUser } from '../actions/user-actions';
 import FormContainer from '../components/FormContainer';
+import { USER_UPDATE_RESET } from '../constants/user-constants';
 
 const UserEditScreen = () => {
   const params = useParams();
@@ -14,30 +15,39 @@ const UserEditScreen = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  const location = useLocation();
 
-  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
-
   const { loading, error, user } = userDetails;
+
   const navigate = useNavigate();
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = userUpdate;
 
   useEffect(() => {
-    if (!user.name || user._id !== userId) {
-      dispatch(getUserDetails(userId));
+    if (successUpdate) {
+      dispatch({ type: USER_UPDATE_RESET });
+      navigate('/admin/userlist');
     } else {
-      setName(user.name);
-      setEmail(user.email);
-      setIsAdmin(user.isAdmin);
+      if (!user.name || user._id !== userId) {
+        dispatch(getUserDetails(userId));
+      } else {
+        setName(user.name);
+        setEmail(user.email);
+        setIsAdmin(user.isAdmin);
+      }
     }
-  }, [user]);
+  }, [dispatch, user, userId, successUpdate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // DISPATCH REGISTER
+    dispatch(updateUser({ _id: userId, name, email, isAdmin }));
   };
 
   return (
@@ -48,7 +58,8 @@ const UserEditScreen = () => {
 
       <FormContainer>
         <h1>Edit User</h1>
-
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (

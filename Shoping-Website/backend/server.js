@@ -8,11 +8,18 @@ import { notFound, errorHandler } from './middleware/error-middleware.js';
 import orderRoutes from './routes/order-routes.js';
 import uploadRoutes from './routes/upload-routes.js';
 import path from 'path';
+import morgan from 'morgan';
+
 dotenv.config();
 
 connectDB();
 
 const app = express(); //initializing express
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -27,8 +34,8 @@ app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
 
-const __dirname = path.resolve()
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(notFound);
 

@@ -5,6 +5,7 @@ import FormContainer from '../components/FormContainer';
 import { saveShippingAddress } from '../actions/cart-actions';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
+import { Helmet } from 'react-helmet';
 
 const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
@@ -22,63 +23,69 @@ const ShippingScreen = ({ history }) => {
     navigate('/payment');
   };
   return (
-    <FormContainer>
-      <CheckoutSteps step1 step2 />
-      <h1>shipping</h1>
-      <Form onSubmit={submitHandler}>
-        <Form.Group controlId="address">
-          <Form.Label>Address</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter address"
-            value={address}
-            required
-            onChange={(e) => {
-              setAddress(e.target.value);
-            }}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId="city">
-          <Form.Label>City</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter City"
-            value={city}
-            required
-            onChange={(e) => {
-              setCity(e.target.value);
-            }}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId="postalCode">
-          <Form.Label>Postal Code</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Postal Code"
-            value={postalCode}
-            required
-            onChange={(e) => {
-              setPostalCode(e.target.value);
-            }}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group controlId="Country">
-          <Form.Label>Country</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Country"
-            value={country}
-            required
-            onChange={(e) => {
-              setCountry(e.target.value);
-            }}
-          ></Form.Control>
-        </Form.Group>
-        <Button type="submit" variant="primary">
-          Continue
-        </Button>
-      </Form>
-    </FormContainer>
+    <>
+      <Helmet>
+        <title>Shop A-Z | Shipping</title>
+      </Helmet>
+
+      <FormContainer>
+        <CheckoutSteps step1 step2 />
+        <h1>shipping</h1>
+        <Form onSubmit={submitHandler}>
+          <Form.Group controlId="address">
+            <Form.Label>Address</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter address"
+              value={address}
+              required
+              onChange={(e) => {
+                setAddress(e.target.value);
+              }}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="city">
+            <Form.Label>City</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter City"
+              value={city}
+              required
+              onChange={(e) => {
+                setCity(e.target.value);
+              }}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="postalCode">
+            <Form.Label>Postal Code</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Postal Code"
+              value={postalCode}
+              required
+              onChange={(e) => {
+                setPostalCode(e.target.value);
+              }}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="Country">
+            <Form.Label>Country</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Country"
+              value={country}
+              required
+              onChange={(e) => {
+                setCountry(e.target.value);
+              }}
+            ></Form.Control>
+          </Form.Group>
+          <Button type="submit" variant="primary">
+            Continue
+          </Button>
+        </Form>
+      </FormContainer>
+    </>
   );
 };
 

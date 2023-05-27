@@ -6,6 +6,8 @@ import Loader from '../components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/user-actions';
 import FormContainer from '../components/FormContainer';
+import { Helmet } from 'react-helmet';
+
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -33,6 +35,10 @@ const LoginScreen = () => {
   };
 
   return (
+    <>
+    <Helmet>
+        <title>Login/Sign Up</title>
+      </Helmet>
     <FormContainer>
       <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
@@ -73,6 +79,7 @@ const LoginScreen = () => {
         </Col>
       </Row>
     </FormContainer>
+    </>
   );
 };
 

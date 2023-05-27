@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
 import Message from '../components/Message';
 import { createOrder } from '../actions/order-actions';
+import { Helmet } from 'react-helmet';
 
 const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
@@ -65,6 +66,9 @@ const PlaceOrderScreen = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Shop A-Z | Place Order</title>
+      </Helmet>
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>

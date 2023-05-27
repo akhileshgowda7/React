@@ -5,6 +5,7 @@ import FormContainer from '../components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { savePaymentMethod } from '../actions/cart-actions';
+import { Helmet } from 'react-helmet';
 
 const PaymentScreen = () => {
   const cart = useSelector((state) => state.cart);
@@ -23,6 +24,10 @@ const PaymentScreen = () => {
     navigate('/placeorder');
   };
   return (
+    <>
+    <Helmet>
+        <title>Shop A-Z | Payment</title>
+      </Helmet>
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />
       <h1>Payment Method</h1>
@@ -47,6 +52,7 @@ const PaymentScreen = () => {
         </Button>
       </Form>
     </FormContainer>
+    </>
   );
 };
 

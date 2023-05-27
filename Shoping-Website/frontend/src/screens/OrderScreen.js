@@ -23,6 +23,9 @@ import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
 } from '../constants/order-constants';
+import { Helmet } from 'react-helmet';
+
+
 
 const OrderScreen = () => {
   const orderId = useParams();
@@ -81,6 +84,9 @@ const OrderScreen = () => {
     <Message>{error}</Message>
   ) : (
     <>
+    <Helmet>
+        <title>Shop A-Z | Place Order</title>
+      </Helmet>
       <h1>Order {order._id}</h1>
       <Row>
         <Col md={8}>

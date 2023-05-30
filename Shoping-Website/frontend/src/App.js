@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Header from './components/Header';
@@ -19,7 +19,10 @@ import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 
+
 const App = () => {
+
+
   return (
     <Router>
       <Header />
@@ -38,7 +41,10 @@ const App = () => {
             <Route path="/cart/:id" element={<CartScreen />} />
             <Route path="/admin/userlist" element={<UserListScreen />} />
             <Route path="/admin/productlist" element={<ProductListScreen />} />
-            <Route path="/admin/productlist/:pageNumber" element={<ProductListScreen />} />
+            <Route
+              path="/admin/productlist/:pageNumber"
+              element={<ProductListScreen />}
+            />
 
             <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
             <Route path="/admin/orderlist" element={<OrderListScreen />} />
